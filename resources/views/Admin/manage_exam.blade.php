@@ -26,6 +26,16 @@
    
     <!-- Main content -->
     <section class="content">
+      @if (session('msg'))
+        <script>
+          alert('{{session('msg')}}');
+        </script>
+        @endif
+        @foreach ($errors->all() as $error)
+        <script>
+          alert("{{$error}}");
+        </script>
+        @endforeach 
         <div class="container-fluid">
           <div class="row">
             <div class="col-12">
@@ -102,30 +112,27 @@
 
       </div>
       <div class="modal-body">
-        {{-- @foreach ($errors->all() as $error)
-        <div class="alert alert-danger" role="alert">
-        {{$error}}
-        </div>
-        @endforeach  --}}
-        <form action="{{route('addNewExam')}}" class="database-operation" enctype="multipart/form-data">
+       
+        
+        <form action="{{route('addNewExam')}}"  enctype="multipart/form-data" method="POST">
           @csrf
         <div class="row">
           <div class="col-sm-12">
             <div class="form-group">
               <label>Enter Exam Name</label>
-              <input type="text" name="title" required class="form-control" placeholder="Enter exam Name">
+              <input type="text" name="title"  class="form-control" placeholder="Enter exam Name">
             </div>
           </div>
           <div class="col-sm-12">
             <div class="form-group">
               <label>Select Exam Date</label>
-              <input type="date" name="exam_date" required class="form-control">
+              <input type="date" name="exam_date"  class="form-control">
             </div>
           </div>
           <div class="col-sm-12">
             <div class="form-group">
               <label>Select Exam Category</label>
-              <select class="form-control" required name="category">
+              <select class="form-control"  name="category">
                 @foreach ($ex_category as $category)
                     <option value="{{$category->id}}">{{$category->name}}</option>
                 @endforeach
@@ -134,7 +141,7 @@
           </div>
           <div class="col-sm-12">
             <div class="form-group">
-              <button class="btn btn-primary">Add</button>
+              <button class="btn btn-primary" type="submit">Add</button>
             </div>
           </div>
         </div>

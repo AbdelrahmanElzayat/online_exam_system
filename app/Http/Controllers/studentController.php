@@ -14,73 +14,13 @@ use App\file;
 
 class studentController extends Controller
 {
-    public function loginStudent(){
-        if(session()->get('studentSession')){
-            return view('Student.dashboardStudent');
-        }else{
-        return view('Student.loginStudent');
-    }}
-    public function stdLogin_sub(Request $request){
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-        $student = ex_students::where('email', '=', $request->email)->first();
-        if(!$student){
-            return redirect()->route('loginStudent')
-            ->with('error','we dont recognize ur email');
-        }else{
-            if(Hash::check($request->password,$student->password)){
-                if($student->status==1){
-                    session()->put('studentSession',$student->id);
-                    return redirect()->route('dashboardStudent');
-                }else{
-                    return redirect()->route('loginStudent')->with('error','we dont activate ur email');
-                }
-            }else{
-                return redirect()->route('loginStudent')->with('error','!wrong password');
-            }
-        }
-    }
-    public function logoutStudent(Request $request){
-        $request->session()->forget('studentSession');
-        return redirect('Student.loginStudent');
-    }
-    /************************************************* dashboard */
-    public function dashboardStudent(){
-        if(session()->get('studentSession')){
-            return view('Student.dashboardStudent');
-        }else{
-            return view('Student.loginStudent');
-        }
-    }
+    public function Exams(){
+       $exams = auth()->user()->exams;
+       return view('Student.Exams',[
+           'exams'=>$exams
+       ]);
 
-    public function Exams(){ 
-        if(session()->get('studentSession')){
-        
-        // echo "<pre>";
-        // print_r($results_join);
-        // die();
-        $all_std = ex_students::select('ex_students.*','ex_exam_masters.title as ex_name','ex_exam_masters.exam_date')->
-        join('ex_exam_masters','ex_students.exam','=','ex_exam_masters.id')->get();   
-
-
-        $std_info = ex_students::select('ex_students.*','ex_exam_masters.title as ex_name','ex_exam_masters.exam_date')->
-        join('ex_exam_masters','ex_students.exam','=','ex_exam_masters.id')->where('ex_students.id','=', session('studentSession'))->get()->first();
-        
-        $results_join = ex_result::all();
-        //    echo "<pre>";
-        // print_r($results_join);
-        // die();
-        // where('exam_id','=',$std_info->exam)->where('user_id','=',session('studentSession'))->get()->first();
-        
-        return view('Student.Exams',compact('all_std','results_join'),compact('std_info'));
-        }else{
-            return view('Student.loginStudent');
-        }
-       
     }
-
     public function join_exam_form($id){
         if(session()->get('studentSession')){
             $data = ex_exam_question_master::where('exam_id','=',$id)->get();
@@ -123,13 +63,7 @@ class studentController extends Controller
         $res->result_json = json_encode($result);
         $res->save();
         return redirect(route('show_result',$res->id));
-        // echo $yes_ans;
-        // echo "<br>";
-        // echo "<pre>";
-        // print_r($result);
-
-        // echo "<br>";
-        // print_r($request->all());
+     
     }
     public function show_result($id){
 

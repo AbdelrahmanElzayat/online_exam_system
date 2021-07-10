@@ -1,4 +1,4 @@
-@extends('layouts.studentApp')
+@extends('layouts.app')
 @section('title')
     Exams
 @endsection
@@ -42,63 +42,37 @@
                             <th>Action</th>
                         </thead>
                       <tbody> 
-                        @foreach ($all_std as $key=>$all_s)
-                           @if (($std_info->email) == ($all_s->email))
+                        @foreach ($exams as $exam)
                         <tr>
-                          <th>{{$key+1}}</th>
-                          <td>{{$all_s->ex_name}}</td>
-                          <td>{{$all_s->exam_date}}</td>
+                          <th>{{$exam->id}}</th>
+                          <td>{{$exam->title}}</td>
+                          <td>{{$exam->exam_date}}</td>
                           <td>
-                            @if(strtotime($all_s->exam_date)<strtotime(date('Y-m-d')))
+                            @if(strtotime($exam->exam_date)<strtotime(date('Y-m-d')))
                             {{"Finished"}}
                             @endif
-                            @if(strtotime($all_s->exam_date)==strtotime(date('Y-m-d')))
+                            @if(strtotime($exam->exam_date)==strtotime(date('Y-m-d')))
                             {{"running"}} 
                             @endif  
-                            @if(strtotime($all_s->exam_date)>strtotime(date('Y-m-d')))
+                            @if(strtotime($exam->exam_date)>strtotime(date('Y-m-d')))
                             {{"pending"}}
                             @endif
                           </td>
-
                           <td>
-                            @foreach ($results_join as $exam_join)
-                                @if(($all_s->exam) === ($exam_join->exam_id)&&($exam_join->user_id ==  $std_info->id))
-                                  {{$exam_join->yes_ans}}{{'/'}}{{$exam_join->yes_ans+$exam_join->no_ans}}
-                                  <?php break;?>
-                                @endif
-                            @endforeach
+                            @if (isset($exam->get_user()->yes_ans)) 
+                            {{$exam->get_user()->yes_ans}}/{{$exam->get_user()->yes_ans+$exam->get_user()->no_ans}}
+                            @endif
                           </td>
-
                           <td>
-                            <?php $finish = "" ?>
-                          @if(strtotime($all_s->exam_date)==strtotime(date('Y-m-d')))
-                            @foreach ($results_join as $exam_join)     
-                                {{-- @if(($exam_join->user_id ==  $all_s->id)) --}}
-                                @if(($exam_join->user_id ==  $std_info->id)&&($exam_join->exam_id == $all_s->exam))
-                                  
-                                    {{-- {{$exam_join->user_id}}  --}}
-                                    <?php $finish = "finish" ?>
-                                    {{$finish}}
-                                    {{-- {{$all_s->id}} --}}
-                                    <?php break;?>
-                                
-                                @endif
-
-                                @if (($all_s->id != $exam_join->user_id))
-                                  <?php continue;?>
-                                @endif 
-                            @endforeach
-                          @endif 
-                          @if(strtotime($all_s->exam_date)==strtotime(date('Y-m-d')))
-                          <?php if (!$finish) { ?>
-                            <a href="{{route('join_exam_form',$all_s->exam)}}" class="btn btn-info">Join Exam</a>
-                          <?php } ?>
+                          @if(strtotime($exam->exam_date)==strtotime(date('Y-m-d')))
+                            @if (isset($exam->get_user()->yes_ans))
+                                finish
+                             @else
+                             <a href="{{route('join_exam_form',$exam->id)}}" class="btn btn-info">Join Exam</a> 
+                            @endif
                           @endif 
                         </td>
-                        
                         </tr>
-
-                        @endif
                         @endforeach
                       </tbody>
                       <tfoot>
@@ -111,21 +85,7 @@
                       </tfoot>
                     </table>
                 </div>
-
-
-                {{-- <table class="table table-striped table-bordered table-hover datatable">
-                   @foreach ($results_join as $exam_join)
-                  <tr>
-                    <td>{{$exam_join->exam_id}}</td>
-                    <td>hello</td>
-                    <td>hello</td>
-                  </tr>
-                  @endforeach
-                </table> --}}
-
-
                 <!-- /.card-body -->
-         
               </div>
               <!-- /.card -->
             </div>

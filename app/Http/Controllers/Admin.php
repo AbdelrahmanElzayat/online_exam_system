@@ -7,6 +7,7 @@ use App\ex_exam_master;
 use App\ex_students;
 use App\ex_portal;
 use App\ex_exam_question_master;
+use App\Exam;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -80,46 +81,48 @@ public function category_status($id){
 //******************************************** manage exams ************************************************************//
 public function manage_exam(){
     $ex_category = ex_category::orderBy('id','desc')->where('status','1')->get();
-    $manage_ex = ex_exam_master::select(['ex_exam_masters.*','ex_categories.name as cat_name'])->
-                                 join('ex_categories','ex_exam_masters.category','=','ex_categories.id')->
+    $manage_ex = Exam::select(['exams.*','ex_categories.name as cat_name'])->
+                                 join('ex_categories','exams.category','=','ex_categories.id')->
                                 orderBy('id','desc')->get();
         return view('Admin.manage_exam',compact('ex_category'),compact('manage_ex'));
 }
 public function addNewExam(Request $request){
-    $validator = Validator::make($request->all(),['title'=>'required','category'=>'required','exam_date'=>'required']);
-    if($validator->fails()){
-        $arr3 = array('status'=>'false','message'=>$validator->errors()->all);
-    }else{
-        $manage_ex = new  ex_exam_master();
-        ex_exam_master::create([
+    // $validator = Validator::make($request->all(),['title'=>'required','category'=>'required','exam_date'=>'required']);
+   $s= $request->validate([
+        'title'=>'required',
+        'category'=>'required',
+        'exam_date'=>'required'
+    ]);
+    
+        
+        Exam::create([
             'title'=>$request->title,
             'category'=>$request->category,
             'exam_date'=>$request->exam_date,
             'status'=>1
             ]);
-            $arr3 = array('status'=>'true','message'=>'exam successfully added','reload'=>url('Admin.manage_exam'));
-            // return redirect(route('exam_category'));
-    }
-    echo json_encode($arr3);
+            return redirect()->route('manage_exam')->with('msg','success');
+           
+    
 }
 public function exam_status($id){
-    $ex_exam_master = ex_exam_master::where('id',$id)->get()->first();
+    $ex_exam_master = Exam::where('id',$id)->get()->first();
     if($ex_exam_master->status==1){
         $status=0;
     }else{
         $status=1;
     }
-    $ex_exam_master1 = ex_exam_master::where('id',$id)->get()->first();
+    $ex_exam_master1 = Exam::where('id',$id)->get()->first();
     $ex_exam_master1->status=$status;
     $ex_exam_master1->update();
 }
 public function delete_exam($id){
-    $ex_exam_master = ex_exam_master::findOrFail($id)->delete();
+    $ex_exam_master = Exam::findOrFail($id)->delete();
     return redirect(route('manage_exam'));
 }
 public function edit_exam($id){
     $ex_category = ex_category::orderBy('id','desc')->where('status','1')->get();
-    $ex_exam_master = ex_exam_master::findOrFail($id);
+    $ex_exam_master = Exam::findOrFail($id);
     return view('Admin.edit_exam',compact('ex_exam_master'),compact('ex_category'));
 }
 public function update_exam(Request $request){
@@ -127,7 +130,7 @@ public function update_exam(Request $request){
         
         'title'=>'required','category'=>'required','exam_date'=>'required'
     ]);
-    $ex_exam_master = ex_exam_master::findOrFail($request->id)->update([
+    $ex_exam_master = Exam::findOrFail($request->id)->update([
         'title'=>$request->title,
         'category'=>$request->category,
         'exam_date'=>$request->exam_date,

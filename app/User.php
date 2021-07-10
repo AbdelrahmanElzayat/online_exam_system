@@ -49,4 +49,12 @@ class User extends Authenticatable
     {
         $this->role()->sync($role);
     }
+    public function exams()
+    {
+        return $this->belongsToMany(Exam::class)->withTimestamps();
+    }
+    public function assignExam(Exam $exam)
+    {
+        $this->role()->save($exam);
+    }
 }
