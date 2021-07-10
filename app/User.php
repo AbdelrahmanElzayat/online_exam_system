@@ -55,6 +55,6 @@ class User extends Authenticatable
     }
     public function assignExam(Exam $exam)
     {
-        $this->role()->save($exam);
+        $this->exams()->save($exam);
     }
 }

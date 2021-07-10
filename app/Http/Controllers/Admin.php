@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\course;
 use Illuminate\Http\Request;
 use App\ex_category;
 use App\ex_exam_master;
@@ -17,39 +19,28 @@ class Admin extends Controller
         return view('Admin.dashboard');
     }
     public function exam_category(){
-        $ex_category = ex_category::orderBy('id','desc')->get();
+        $ex_category = course::latest()->get();
         return view('Admin.exam_category',compact('ex_category'));
     }
     public function addNewCategory(Request $request){
         $validator = Validator::make($request->all(),['name'=>'required']);
-        if($validator->fails()){
-            $arr = array('status'=>'false','message'=>$validator->errors()->all);
-        }else{
-            $cat = new ex_category();
-            ex_category::create([
+            $cat = new course();
+            course::create([
                 'name'=>$request->name,
                 'status'=>1
                 ]);
                 $arr = array('status'=>'true','message'=>'success','reload'=>url('Admin.exam_category'));
                 // return redirect(route('exam_category'));
-        }
+        
         echo json_encode($arr);
-    //    if($request->passes()){
-    //     $cat = new ex_category();
-    //     $cat->name = $request->name;
-    //     $cat->status=1;
-    //     $cat->save();
-    //     $arr = array('status'=>true,'message'=>'success','reload'=>route('exam_category'));
-    //    }else{
-    //        $arr = array('status'=>false,'message'=>$request->errors()->all);
-    //    }
+   
     }
     public function deleteCategory($id){
-        $ex_category = ex_category::findOrFail($id)->delete();
+        $course = course::findOrFail($id)->delete();
         return redirect(route('exam_category'));
     }
     public function editCategory($id){
-        $ex_category = ex_category::findOrFail($id);
+        $ex_category = course::findOrFail($id);
         return view('Admin.editCategory',compact('ex_category'));
     }
 
@@ -58,7 +49,7 @@ class Admin extends Controller
     $request->validate([
         'name'=>'required'
     ]);
-    $ex_category = ex_category::findOrFail($request->id)->update([
+    $ex_category = course::findOrFail($request->id)->update([
     'name'=>$request->name,
     ]);
     // $ex_category = ex_category::where('id',$request->id)->get()->first();
@@ -67,24 +58,25 @@ class Admin extends Controller
     echo json_encode(array('status'=>'true','message'=>'updated success','reload'=>url('Admin.exam_category')));
 }
 public function category_status($id){
-    $ex_category = ex_category::where('id',$id)->get()->first();
+    $ex_category = course::where('id',$id)->get()->first();
     if($ex_category->status==1){
         $status=0;
     }else{
         $status=1;
     }
-    $ex_category1 = ex_category::where('id',$id)->get()->first();
+    $ex_category1 = course::where('id',$id)->get()->first();
     $ex_category1->status=$status;
     $ex_category1->update();
 }
 
 //******************************************** manage exams ************************************************************//
 public function manage_exam(){
-    $ex_category = ex_category::orderBy('id','desc')->where('status','1')->get();
-    $manage_ex = Exam::select(['exams.*','ex_categories.name as cat_name'])->
-                                 join('ex_categories','exams.category','=','ex_categories.id')->
-                                orderBy('id','desc')->get();
-        return view('Admin.manage_exam',compact('ex_category'),compact('manage_ex'));
+    $courses = course::latest()->get();
+    $exams = Exam::latest()->get();
+        return view('Admin.manage_exam',[
+            'exams' =>$exams,
+            'courses'=>$courses
+        ]);
 }
 public function addNewExam(Request $request){
     // $validator = Validator::make($request->all(),['title'=>'required','category'=>'required','exam_date'=>'required']);
@@ -95,12 +87,14 @@ public function addNewExam(Request $request){
     ]);
     
         
-        Exam::create([
+       $exam = Exam::create([
             'title'=>$request->title,
             'category'=>$request->category,
             'exam_date'=>$request->exam_date,
             'status'=>1
             ]);
+          $x=  course::findOrFail($request->category);
+          $x->assignExam($exam);
             return redirect()->route('manage_exam')->with('msg','success');
            
     

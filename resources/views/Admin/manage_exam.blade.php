@@ -65,11 +65,11 @@
                           <th>Action</th>
                       </thead>
                     <tbody>
-                        @foreach ($manage_ex as $key=>$exam)
+                        @foreach ($exams as $exam)
                             <tr>
-                              <th>{{$key+1}}</th>
+                              <th>{{$exam->id}}</th>
                               <td>{{$exam->title}}</td>
-                              <td>{{$exam->cat_name}}</td>
+                              <td>{{$exam->courses->map->name->first()}}</td>
                               <td>{{$exam->exam_date}}</td>
                               <td><input type="checkbox" name="status" class="exam_status" data-id="{{$exam->id}}" {{$exam->status==1?'checked':''}}>
                             </td>
@@ -133,8 +133,10 @@
             <div class="form-group">
               <label>Select Exam Category</label>
               <select class="form-control"  name="category">
-                @foreach ($ex_category as $category)
-                    <option value="{{$category->id}}">{{$category->name}}</option>
+                @foreach ($courses as $category)
+                @if ($category->status == '1')
+                <option value="{{$category->id}}">{{$category->name}}</option>
+                @endif
                 @endforeach
               </select>
             </div>

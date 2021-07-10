@@ -14,7 +14,7 @@ class Exam extends Model
     }
     public function assignResult(Result $result)
     {
-        $this->role()->save($result);
+        $this->results()->save($result);
     }
     public function get_user()
     {
@@ -26,6 +26,14 @@ class Exam extends Model
            
         }
        
+    }
+    public function courses()
+    {
+        return $this->belongsToMany(course::class)->withTimestamps();
+    }
+    public function assignCourses(course $course)
+    {
+        $this->courses()->sync($course);
     }
     
 }
