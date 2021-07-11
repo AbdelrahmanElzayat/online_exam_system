@@ -279,17 +279,6 @@
                                         </p>
                                     </a>
                                 </li>
-<<<<<<< HEAD
-=======
-                                <li class="nav-item">
-                                    <a href="{{ route('logoutPortal') }}" class="nav-link">
-                                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                                        <p>
-                                            Logout
-                                        </p>
-                                    </a>
-                                </li> --}}
->>>>>>> 56bad40025613b4ea1a94b2246f40644061c90a6
                             @endif
                             @if (auth()->user()->user_role() === 'student')
                             <li class="nav-item">
@@ -335,17 +324,6 @@
                                 </a>
                               </li>
                               {{-- ############################################################################################## --}}
-<<<<<<< HEAD
-=======
-                             <li class="nav-item">
-                                <a href="{{route('logoutStudent')}}" class="nav-link">
-                                  <i class="nav-icon fas fa-tachometer-alt"></i>
-                                  <p>
-                                    Logout
-                                  </p>
-                                </a>
-                              </li> 
->>>>>>> 56bad40025613b4ea1a94b2246f40644061c90a6
                               @endif
                               <li class="nav-item">
 
