@@ -13,7 +13,7 @@ class course extends Model
     }
     public function assignExam(Exam $course)
     {
-        $this->exams()->sync($course);
+        $this->exams()->save($course);
     }
     public function users()
     {

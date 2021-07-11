@@ -38,7 +38,7 @@
                     {{$error}}
                     </div>
                     @endforeach  --}}
-                    <form  method="POST" action="{{route('updateCategory')}}" class="database-operation" enctype="multipart/form-data">
+                    <form  method="POST" action="{{route('updateCategory')}}" enctype="multipart/form-data">
                         @csrf
                     <div class="row">
                         <div class="col-sm-12">

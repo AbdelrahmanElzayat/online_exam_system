@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    dashboard
+    Student
 @endsection
 @section('content')
 
@@ -26,6 +26,16 @@
    
     <!-- Main content -->
     <section class="content">
+          @if (session('msg'))
+          <script>
+            alert('{{session('msg')}}');
+          </script>
+          @endif
+          @foreach ($errors->all() as $error)
+          <script>
+            alert("{{$error}}");
+          </script>
+          @endforeach 
         <div class="container-fluid">
           <div class="row">
             <div class="col-12">
@@ -36,12 +46,7 @@
   
                   <div class="card-tools">
                       <a class="btn btn-info btn-sm" href="javascript:;" data-toggle="modal" data-target="#myModal">Add New</a>
-                    {{-- <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                      <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                      <i class="fas fa-times"></i>
-                    </button> --}}
+                  
                   </div>
                 </div>
                 <div class="card-body">
@@ -49,39 +54,29 @@
                       <thead>
                           <th>#</th>
                           <th>Name</th>
-                          <th>DOB</th>
-                          <th>Exam</th>
-                          <th>Exam Date</th>
-                          <th>Result</th>
-                          <th>Status</th>
+                          <th>Email</th>
                           <th>Action</th>
                       </thead>
                     <tbody>
                       @foreach ($ex_students as $key=>$student)
+                      @if ($student->user_role() === 'student')
                           <tr>
                             <td>{{$key+1}}</td>
                             <td>{{$student->name}}</td>
-                            <td>{{$student->dob}}</td>
-                            <td>{{$student->ex_name}}</td>
-                            <td>{{$student->exam_date}}</td>
-                            <td>N/A</td>
-                            <td><input {{$student->status == 1?'checked':''}} type="checkbox" name="status" class="student_status" data-id="{{$student->id}}"></td>
+                            <td>{{$student->email}}</td>
                             <td>
                               <a href="{{route('edit_student',$student->id)}}" class="btn btn-info btn-sm">Edit</a>
                               <a href="{{route('delete_student',$student->id)}}" class="btn btn-danger btn-sm">Delete</a>
 
                             </td>
                           </tr>
+                        @endif
                       @endforeach
                     </tbody>
                     <tfoot>
                           <th>#</th>
                           <th>Name</th>
-                          <th>DOB</th>
-                          <th>Exam</th>
-                          <th>Exam Date</th>
-                          <th>Result</th>
-                          <th>Status</th>
+                          <th>Email</th>
                           <th>Action</th>
                     </tfoot>
                   </table>
@@ -112,7 +107,7 @@
         {{$error}}
         </div>
         @endforeach  --}}
-        <form action="{{route('add_students')}}" class="database-operation" enctype="multipart/form-data">
+        <form action="{{route('add_students')}}" method="POST" enctype="multipart/form-data">
           @csrf
         <div class="row">
           <div class="col-sm-12">
@@ -133,19 +128,8 @@
                   <input type="password" name="password" required class="form-control" placeholder="Enter ur Password">
                 </div>
               </div>
-            <div class="col-sm-12">
-                <div class="form-group">
-                  <label>Enter mobile-no</label>
-                  <input type="text" name="mobile_no" required class="form-control" placeholder="Enter phone-no">
-                </div>
-              </div>
-          <div class="col-sm-12">
-            <div class="form-group">
-              <label> Date Of Birth</label>
-              <input type="date" name="dob" required class="form-control">
-            </div>
-          </div>
-          <div class="col-sm-12">
+
+          {{-- <div class="col-sm-12">
             <div class="form-group">
               <label>Select Exam</label>
               <select class="form-control" name="exam" id="">
@@ -154,7 +138,7 @@
                   @endforeach
               </select>
             </div>
-          </div>
+          </div> --}}
 
           <div class="col-sm-12">
           </div>

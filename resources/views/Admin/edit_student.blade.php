@@ -1,9 +1,19 @@
 @extends('layouts.app')
 @section('title')
-    dashboard
+    Edit Student
 @endsection
 @section('content')
 
+    @if (session('msg'))
+    <script>
+      alert('{{session('msg')}}');
+    </script>
+    @endif
+    @foreach ($errors->all() as $error)
+    <script>
+      alert("{{$error}}");
+    </script>
+    @endforeach 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
    <!-- Content Header (Page header) -->
@@ -33,12 +43,7 @@
               <div class="card">
               
                 <div class="card-body">
-                                {{-- @foreach ($errors->all() as $error)
-                    <div class="alert alert-danger" role="alert">
-                    {{$error}}
-                    </div>
-                    @endforeach  --}}
-                    <form action="{{route('update_student')}}" class="database-operation" enctype="multipart/form-data">
+                    <form action="{{route('update_student')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                       <div class="row">
                         <div class="col-sm-12">
@@ -60,19 +65,7 @@
                                 <input type="password" value="{{$ex_students->password}}" name="password" required class="form-control" placeholder="Enter ur Password">
                               </div>
                             </div>
-                          <div class="col-sm-12">
-                              <div class="form-group">
-                                <label>Enter mobile-no</label>
-                                <input type="text" value="{{$ex_students->mobile_no}}" name="mobile_no" required class="form-control" placeholder="Enter phone-no">
-                              </div>
-                            </div>
-                        <div class="col-sm-12">
-                          <div class="form-group">
-                            <label> Date Of Birth</label>
-                            <input type="date" value="{{$ex_students->dob}}" name="dob" required class="form-control">
-                          </div>
-                        </div>
-                        <div class="col-sm-12">
+                        {{-- <div class="col-sm-12">
                           <div class="form-group">
                             <label>Select Exam</label>
                             <select class="form-control" name="exam" id="">
@@ -85,8 +78,7 @@
                                 @endforeach
                             </select>
                           </div>
-                        </div>
-              
+                        </div> --}}
                         <div class="col-sm-12">
                         </div>
                         <div class="col-sm-12">

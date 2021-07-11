@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-   Search Student
+uploadPage
 @endsection
 @section('content')
 
@@ -11,12 +11,12 @@
      <div class="container-fluid">
        <div class="row mb-2">
          <div class="col-sm-6">
-           <h1 class="m-0">Search Student</h1>
+           <h1 class="m-0"> uploadPage </h1>
          </div><!-- /.col -->
          <div class="col-sm-6">
            <ol class="breadcrumb float-sm-right">
              <li class="breadcrumb-item"><a href="#">Home</a></li>
-             <li class="breadcrumb-item active">Search Student</li>
+             <li class="breadcrumb-item active">uploadPage</li>
            </ol>
          </div><!-- /.col -->
        </div><!-- /.row -->
@@ -37,36 +37,30 @@
                     {{$error}}
                     </div>
                     @endforeach 
-                    <form action="{{route('updateStudent')}}" method="get">
+                    <form action="{{route('uploadAction')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                        <div class="col-sm-12">
                            <div class="form-group">
-                               <label for="">Enter mobile-no</label>
-                               <input type="text" name="mobile_no" class="form-control" placeholder="Enter mobile-no" value="{{old('mobile_no')}}">
+                               <label for="">Enter Name</label>
+                               <input type="text" name="name" class="form-control" placeholder="Enter name of file" value="{{old('name')}}">
                            </div>
                        </div>
                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label for="">Select DOB</label>
-                                <input type="date" name="dob" class="form-control" placeholder="Select DOB" value="{{old('dob')}}">
-                            </div>
-                        </div>
+                           <div class="form-group">
+                               <label for="">Enter Description</label>
+                               <input type="text" name="description" class="form-control" placeholder="Enter file Description" value="{{old('description')}}">
+                           </div>
+                       </div>
+                       <div class="col-sm-12">
+                           <div class="form-group">
+                               <input type="file" name="file" id="">
+                           </div>
+                       </div>
+                      
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label for="">Select Exam</label>
-                                <select name="exam" class="form-control">
-                                    <option value="">
-                                        @foreach ($exams as $exam)
-                                            <option value="{{$exam->id}}">{{$exam->title}}</option>
-                                        @endforeach
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <button class="btn btn-info">Search</button>
+                                <input type="submit" class="btn btn-info"></button>
                             </div>
                         </div>
                     </div>

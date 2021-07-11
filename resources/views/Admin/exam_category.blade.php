@@ -26,6 +26,16 @@
    
     <!-- Main content -->
     <section class="content">
+      @if (session('msg'))
+        <script>
+          alert('{{session('msg')}}');
+        </script>
+        @endif
+        @foreach ($errors->all() as $error)
+        <script>
+          alert("{{$error}}");
+        </script>
+        @endforeach 
         <div class="container-fluid">
           <div class="row">
             <div class="col-12">
@@ -36,12 +46,6 @@
   
                   <div class="card-tools">
                       <a class="btn btn-info btn-sm" href="javascript:;" data-toggle="modal" data-target="#myModal">Add New</a>
-                    {{-- <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                      <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                      <i class="fas fa-times"></i>
-                    </button> --}}
                   </div>
                 </div>
                 <div class="card-body">
@@ -105,13 +109,13 @@
         {{$error}}
         </div>
         @endforeach  --}}
-        <form action="{{route('addNewCategory')}}" class="database-operation" enctype="multipart/form-data">
+        <form action="{{route('addNewCategory')}}" method="POST" enctype="multipart/form-data">
           @csrf
         <div class="row">
           <div class="col-sm-12">
             <div class="form-group">
               <label>Enter Category Name</label>
-              <input type="text" name="name" required class="form-control" placeholder="Enter Category Name">
+              <input type="text" name="name" class="form-control" placeholder="Enter Category Name">
             </div>
           </div>
           <div class="col-sm-12">

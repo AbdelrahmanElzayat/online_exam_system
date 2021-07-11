@@ -1,4 +1,4 @@
-@extends('layouts.studentApp')
+@extends('layouts.app')
 @section('title')
   Exam
 @endsection
@@ -62,6 +62,7 @@
                             <p><b>{{$key+1}}. {{$question->question}}</b></p>
                             <?php $options = json_decode(json_encode(json_decode($question->option))) ?>
                             <input type="hidden" name="question{{$key+1}}" value="{{$question->id}}">
+                            <input type="hidden" name="exam_id" value="{{$question->exams->map->id->first()}}">
                             <ul class="question_option">
                                 <li><input type="radio" name="ans{{$key+1}}" value="{{$options->option1}}"> {{$options->option1}}</li>
                                 <li><input type="radio" name="ans{{$key+1}}" value="{{$options->option2}}">  {{$options->option2}}</li>

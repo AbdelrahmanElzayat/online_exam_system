@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Result extends Model
 {
     //
+    protected $guarded=[];
     public function exams()
     {
         return $this->belongsToMany(Exam::class)->withTimestamps();

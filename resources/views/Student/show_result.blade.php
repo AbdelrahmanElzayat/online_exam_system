@@ -1,4 +1,4 @@
-@extends('layouts.studentApp')
+@extends('layouts.app')
 @section('title')
    Result
 @endsection
@@ -47,18 +47,18 @@
                             <td>email</td>
                             <td>{{$std_info->email}}</td>
                         </tr>
-                        {{-- <tr>
+                        <tr>
                             <td>Exam Name</td>
-                            <td>{{$std_info->ex_name}}</td>
-                        </tr> --}}
+                            <td>{{$result_info->exams->map->title->first()}}</td>
+                        </tr>
                         <tr>
                             <td>Date Of Birth</td>
                             <td>{{date('d M,Y',strtotime($std_info->dob))}}</td>
                         </tr>
-                        {{-- <tr>
+                        <tr>
                             <td>Exam Date</td>
-                            <td>{{date('d M,Y',strtotime($std_info->exam_date))}}</td>
-                        </tr> --}}
+                            <td>{{date('d M,Y',strtotime($result_info->exams->map->exam_date->first()))}}</td>
+                        </tr>
                        
                     </table>
                   
