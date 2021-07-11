@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="{{ url('public/assets/plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ url('public/assets/plugins/summernote/summernote-bs4.min.css') }}">
+    @yield('style')
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -279,14 +280,6 @@
                                         </p>
                                     </a>
                                 </li>
-                                {{-- <li class="nav-item">
-                                    <a href="{{ route('logoutPortal') }}" class="nav-link">
-                                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                                        <p>
-                                            Logout
-                                        </p>
-                                    </a>
-                                </li> --}}
                             @endif
                             @if (auth()->user()->user_role() === 'student')
                             <li class="nav-item">
@@ -323,15 +316,6 @@
                                   </p>
                                 </a>
                               </li>
-                              {{-- ############################################################################################## --}}
-                              {{-- <li class="nav-item">
-                                <a href="{{route('logoutStudent')}}" class="nav-link">
-                                  <i class="nav-icon fas fa-tachometer-alt"></i>
-                                  <p>
-                                    Logout
-                                  </p>
-                                </a>
-                              </li>  --}}
                               @endif
                               <li class="nav-item">
 
@@ -414,6 +398,7 @@
             $('.datatable').dataTable();
           });
         </script>
+        @yield('script')
 </body>
 
 </html>

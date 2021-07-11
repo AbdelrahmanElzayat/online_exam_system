@@ -19,7 +19,13 @@ class Admin extends Controller
         return view('Admin.dashboard');
     }
     public function exam_category(){
-        $ex_category = course::latest()->get();
+        $role= auth()->user()->role->map->label->first();
+        if ($role === 'admin') {
+             $ex_category = course::latest()->get();
+        }else{
+            $ex_category = auth()->user()->courses;
+        }
+        
         return view('Admin.exam_category',compact('ex_category'));
     }
     public function addNewCategory(Request $request){

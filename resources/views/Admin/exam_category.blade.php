@@ -66,6 +66,7 @@
                         <td>
                           <a href="{{ route('editCategory',$category->id) }}" class="btn btn-info">Edit</a>
                           <a href="{{ route('deleteCategory',$category->id) }}" class="btn btn-danger">Delete</a>
+                          <a href="{{ route('timeline',$category) }}" class="btn btn-success">View Course</a>
                         </td>
                       </tr>
                       @endforeach
