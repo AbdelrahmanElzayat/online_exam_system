@@ -18,7 +18,6 @@ Route::get('/editEmail', 'editEmailController@edit')->name('edit');
 
 Route::post('/update', 'editEmailController@update')->name('update');
 
-
 //****************************************Admin part */
 
 //categories
