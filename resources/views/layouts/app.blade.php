@@ -279,7 +279,7 @@
                                         </p>
                                     </a>
                                 </li>
-                                {{-- <li class="nav-item">
+                                <li class="nav-item">
                                     <a href="{{ route('logoutPortal') }}" class="nav-link">
                                         <i class="nav-icon fas fa-tachometer-alt"></i>
                                         <p>
@@ -323,15 +323,23 @@
                                   </p>
                                 </a>
                               </li>
+                              <li class="nav-item">
+                                <a href="{{route('payForm')}}" class="nav-link">
+                                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                                  <p>
+                                    Payment
+                                  </p>
+                                </a>
+                              </li>
                               {{-- ############################################################################################## --}}
-                              {{-- <li class="nav-item">
+                             <li class="nav-item">
                                 <a href="{{route('logoutStudent')}}" class="nav-link">
                                   <i class="nav-icon fas fa-tachometer-alt"></i>
                                   <p>
                                     Logout
                                   </p>
                                 </a>
-                              </li>  --}}
+                              </li> 
                               @endif
                               <li class="nav-item">
 
@@ -344,7 +352,16 @@
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
-                            </li>   
+                            </li>
+                           <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        Update 
+                                    </p>
+                                </a>
+                            </li> 
+                            
                         </ul>
                     </nav>
                     <!-- /.sidebar-menu -->

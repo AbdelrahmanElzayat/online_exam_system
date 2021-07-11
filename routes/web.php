@@ -12,6 +12,13 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/Admin.dashboard', 'Admin@admin')->name('AdminBoard');
 
+// Update
+// ****************
+Route::get('/editEmail', 'editEmailController@edit')->name('edit');
+
+Route::post('/update', 'editEmailController@update')->name('update');
+
+
 //****************************************Admin part */
 
 //categories
@@ -86,7 +93,15 @@ Route::get('/Student.logoutStudent', 'studentController@logoutStudent')->name('l
 Route::get('/Student.dashboardStudent', 'studentController@dashboardStudent')->name('dashboardStudent');
 
 Route::get('/Student.Exams', 'studentController@Exams')->name('Exams');
+// payment ***********************************************************
+Route::get('/payForm', 'productController@show')->name('payForm');
+Route::POST('/paypal', 'paypalController@index')->name('polpol');
 
+
+Route::get('/product', 'paypalController@productReturn')->name('product_return');
+Route::get('/canceld', 'paypalController@productCancel')->name('product_cancel');
+
+// ***********************
 Route::get('/Student.join_exam_form/{id}', 'studentController@join_exam_form')->name('join_exam_form');
 Route::post('/Student.submit_exam', 'studentController@submit_exam')->name('submit_exam');
 Route::get('/Student.show_result/{id}', 'studentController@show_result')->name('show_result');
