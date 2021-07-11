@@ -1,4 +1,4 @@
-@extends('layouts.studentApp')
+@extends('layouts.app')
 @section('title')
     Files
 @endsection

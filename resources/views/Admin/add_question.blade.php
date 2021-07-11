@@ -26,6 +26,16 @@
    
     <!-- Main content -->
     <section class="content">
+      @if (session('msg'))
+        <script>
+          alert('{{session('msg')}}');
+        </script>
+        @endif
+        @foreach ($errors->all() as $error)
+        <script>
+          alert("{{$error}}");
+        </script>
+        @endforeach 
         <div class="container-fluid">
           <div class="row">
             <div class="col-12">
@@ -36,12 +46,6 @@
   
                   <div class="card-tools">
                       <a class="btn btn-info btn-sm" href="javascript:;" data-toggle="modal" data-target="#myModal">Add New</a>
-                    {{-- <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                      <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                      <i class="fas fa-times"></i>
-                    </button> --}}
                   </div>
                 </div>
                 <div class="card-body">
@@ -54,9 +58,9 @@
                           <th>Action</th>
                       </thead>
                     <tbody>
-                      @foreach ($questions as $key=>$question)
+                      @foreach ($questions as $question)
                           <tr>
-                              <th>{{$key+1}}</th>
+                              <th>{{$question->id}}</th>
                               <td>{{$question->question}}</td>
                               <td>{{$question->ans}}</td>
                               <td><input class="question_status" type="checkbox"{{$question->status==1?'checked':''}} name="status" data-id="{{$question->id}}"></td>
@@ -102,7 +106,7 @@
         {{$error}}
         </div>
         @endforeach  --}}
-        <form action="{{route('addNewQuestion')}}" class="database-operation" enctype="multipart/form-data">
+        <form action="{{route('addNewQuestion')}}" method="POST" enctype="multipart/form-data">
           @csrf
         <div class="row">
           <div class="col-sm-12">

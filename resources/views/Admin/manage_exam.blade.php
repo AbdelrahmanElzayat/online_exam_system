@@ -76,7 +76,7 @@
                               <td>
                                 <a href="{{route('edit_exam',$exam->id)}}" class="btn btn-info btn-sm">Edit</a>
                                 <a href="{{route('delete_exam',$exam->id)}}" class="btn btn-danger btn-sm">Delete</a>
-                                <a href="{{route('add_question',$exam->id)}}" class="btn btn-primary btn-sm">Add Question</a>
+                                <a href="{{route('add_question',$exam)}}" class="btn btn-primary btn-sm">Add Question</a>
                               </td>
                             </tr>
                         @endforeach

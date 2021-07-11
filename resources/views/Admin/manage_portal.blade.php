@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Mange Portal
+    Portal
 @endsection
 @section('content')
 
@@ -26,6 +26,16 @@
    
     <!-- Main content -->
     <section class="content">
+            @if (session('msg'))
+            <script>
+              alert('{{session('msg')}}');
+            </script>
+            @endif
+            @foreach ($errors->all() as $error)
+            <script>
+              alert("{{$error}}");
+            </script>
+            @endforeach 
         <div class="container-fluid">
           <div class="row">
             <div class="col-12">
@@ -36,12 +46,6 @@
   
                   <div class="card-tools">
                       <a class="btn btn-info btn-sm" href="javascript:;" data-toggle="modal" data-target="#myModal">Add New</a>
-                    {{-- <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                      <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                      <i class="fas fa-times"></i>
-                    </button> --}}
                   </div>
                 </div>
                 <div class="card-body">
@@ -50,31 +54,27 @@
                           <th>#</th>
                           <th>Name</th>
                           <th>E-mail</th>
-                          <th>mobile-no</th>
-                          <th>Status</th>
                           <th>Action</th>
                       </thead>
                     <tbody>
                         @foreach ($ex_portal as $key=>$portal)
+                        @if ($portal->user_role() === 'portal')
                             <tr>
                                 <th>{{$key+1}}</th>
                                 <td>{{$portal->name}}</td>
                                 <td>{{$portal->email}}</td>
-                                <td>{{$portal->mobile_no}}</td>
-                                <td><input type="checkbox" {{$portal->status=='1'?'checked':''}} name="status" class="portal_status" data-id="{{$portal->id}}"></td>
                                 <td>
                                     <a href="{{route('edit_portal',$portal->id)}}" class="btn btn-info btn-sm">Edit</a>
                                     <a href="{{route('delete_portal',$portal->id)}}" class="btn btn-danger btn-sm">Delete</a>
                                 </td>
                             </tr>
+                            @endif
                         @endforeach
                     </tbody>
                     <tfoot>
                         <th>#</th>
                         <th>Name</th>
                         <th>E-mail</th>
-                        <th>mobile-no</th>
-                        <th>Status</th>
                         <th>Action</th>
                     </tfoot>
                   </table>
@@ -100,12 +100,7 @@
 
       </div>
       <div class="modal-body">
-        {{-- @foreach ($errors->all() as $error)
-        <div class="alert alert-danger" role="alert">
-        {{$error}}
-        </div>
-        @endforeach  --}}
-        <form action="{{route('add_portal')}}" class="database-operation" enctype="multipart/form-data">
+        <form action="{{route('add_portal')}}" method="POST" enctype="multipart/form-data">
           @csrf
         <div class="row">
           <div class="col-sm-12">
@@ -124,12 +119,6 @@
                 <div class="form-group">
                   <label>Enter Password</label>
                   <input type="password" name="password" required class="form-control" placeholder="Enter ur Password">
-                </div>
-              </div>
-            <div class="col-sm-12">
-                <div class="form-group">
-                  <label>Enter mobile-no</label>
-                  <input type="text" name="mobile_no" required class="form-control" placeholder="Enter phone-no">
                 </div>
               </div>
           <div class="col-sm-12">

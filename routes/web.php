@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+
+
 Route::get('/', function () {
     return view('welcome');
 });
-
 
 Auth::routes();
 
@@ -116,6 +117,18 @@ Route::get('/Student.files', 'studentController@show_files')->name('files');
 Route::get('/download/{abdo:file}', 'studentController@download')->name('download');
 
 Route::get('/Student.files/{id}', 'studentController@view')->name('view');
+
+// =======================================================================================
+Route::get('/cateogry/{course:name}','PostController@index')->name('timeline');
+Route::post('/timline', 'PostController@store')->name('post.store');
+Route::post('/assignUser', 'PostController@assignUser')->name('assignUser');
+
+
+
+
+
+
+Route::get('/__Result_student', 'Admin@Result_student')->name('Result_student');
 
 
 

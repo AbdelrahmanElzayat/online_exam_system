@@ -1,4 +1,4 @@
-@extends('layouts.portalApp')
+@extends('layouts.app')
 @section('title')
   Portal Dashboard
 @endsection

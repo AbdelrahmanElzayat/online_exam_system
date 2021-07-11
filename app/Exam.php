@@ -33,7 +33,20 @@ class Exam extends Model
     }
     public function assignCourses(course $course)
     {
+        $this->courses()->save($course);
+    }
+    public function updateCourse(course $course)
+    {
         $this->courses()->sync($course);
+    }
+
+    public function questions()
+    {
+        return $this->belongsToMany(question::class)->withTimestamps();
+    }
+    public function assignQuestion(question $course)
+    {
+        $this->questions()->save($course);
     }
     
 }
