@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Courses;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -56,5 +57,27 @@ class User extends Authenticatable
     public function assignExam(Exam $exam)
     {
         $this->exams()->save($exam);
+    }
+    public function getAvatarAttribute()
+    {
+        return 'https://i.pravatar.cc/200?u=' . $this->email;
+    }
+    public function timeline()
+    {
+        return Post::Where('user_id',$this->id)
+        ->latest()
+        ->get();
+    }
+    public function Post()
+    {
+        return $this->hasMany(Post::class)->latest();
+    }
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class)->withTimestamps();
+    }
+    public function assignCourse(Course $course)
+    {
+        $this->courses()->save($course);
     }
 }

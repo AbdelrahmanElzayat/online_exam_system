@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\course;
 use Illuminate\Http\Request;
 use App\ex_students;
 use App\ex_exam_question_master;
@@ -96,7 +97,9 @@ public function uploadAction(Request $request){
     $data->description = $request->description;
 
     $data->save();
-    return redirect('Student.files');
+    $course = course::findOrFail($request->course_id);
+    $course->assignfiles($data);
+    return back();
 
 }
 

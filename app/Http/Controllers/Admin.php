@@ -26,7 +26,13 @@ class Admin extends Controller
 
 //******************************************** view category
     public function exam_category(){
-        $ex_category = course::latest()->get();
+        $role= auth()->user()->role->map->label->first();
+        if ($role === 'admin') {
+             $ex_category = course::latest()->get();
+        }else{
+            $ex_category = auth()->user()->courses;
+        }
+        
         return view('Admin.exam_category',compact('ex_category'));
     }
 //******************************************** insert category
