@@ -5,40 +5,42 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ex_students;
 use App\ex_exam_question_master;
+use App\Exam;
 use App\model\ex_result;
 use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Support\Facades\Stroage;
 use App\file;
-
+use App\question;
+use App\Result;
 
 class studentController extends Controller
 {
+//########################################### exams ##################################################
+
+//***************************** view exams
     public function Exams(){
        $exams = auth()->user()->exams;
        return view('Student.Exams',[
            'exams'=>$exams
        ]);
+    }
 
-    }
-    public function join_exam_form($id){
-        if(session()->get('studentSession')){
-            $data = ex_exam_question_master::where('exam_id','=',$id)->get();
+//**************************** questions form
+    public function join_exam_form(Exam $id){
+            $data = $id->questions;
             return view('Student.join_exam_form',compact('data'));
-        }else{
-            return view('Student.loginStudent');
-        }
-        
     }
+
+//*************************** submit answers
     public function submit_exam(Request $request){
-        
         $yes_ans = 0;
         $no_ans = 0;
         $data = $request->all();
         $result = array();
         for($i=1;$i<=$request->index;$i++){
             if(isset($data['question'.$i])){
-                $question =ex_exam_question_master::where('id','=',$data['question'.$i])->get()->first();
+                $question =question::where('id','=',$data['question'.$i])->get()->first();
                 if($question->ans == $data['ans'.$i]){
                     $result[$data['question'.$i]]='yes';
                     $yes_ans++;
@@ -48,37 +50,28 @@ class studentController extends Controller
                 }
             }
         }
-        $all_std = ex_students::select('ex_students.*','ex_exam_masters.title as ex_name','ex_exam_masters.exam_date')->
-        where('exam','=',$request->exam_id)->
-        join('ex_exam_masters','ex_students.exam','=','ex_exam_masters.id')->get()->first(); 
-
-        $std_info = ex_students::select('ex_students.*','ex_exam_masters.title as ex_name','ex_exam_masters.exam_date')->
-        join('ex_exam_masters','ex_students.exam','=','ex_exam_masters.id')->where('ex_students.id','=', session('studentSession'))->get()->first();
-
-        $res = new ex_result();
-        $res->exam_id = $request->exam_id;
-        $res->user_id = $std_info->id;
+        $res = new Result();
+        $res->user_id = auth()->user()->id;
         $res->yes_ans = $yes_ans;
         $res->no_ans = $no_ans;
         $res->result_json = json_encode($result);
         $res->save();
+        $exam = Exam::findOrFail($request->exam_id);
+        $exam->assignResult($res);
         return redirect(route('show_result',$res->id));
-     
     }
+
+//**************************************************** result page
     public function show_result($id){
 
-        $result_info = ex_result::where('id','=',$id)->get()->first();
-
-        $all_std = ex_students::select('ex_students.*','ex_exam_masters.title as ex_name','ex_exam_masters.exam_date')->
-        join('ex_exam_masters','ex_students.exam','=','ex_exam_masters.id')->where('exam','=',$result_info->exam_id)->get()->first();   
-
-        $std_info = ex_students::select('ex_students.*','ex_exam_masters.title as ex_name','ex_exam_masters.exam_date')->
-        join('ex_exam_masters','ex_students.exam','=','ex_exam_masters.id')->where('ex_students.id','=', session('studentSession'))->get()->first();
-
-        return view('Student.show_result',compact('all_std','result_info'),compact('std_info'));
+        $result_info = Result::where('id','=',$id)->get()->first();
+        return view('Student.show_result',[
+            'std_info'=>auth()->user(),
+            'result_info'=>$result_info
+        ]);
     }
 
-/**************************************************** files page */
+//#################################################### upload files #########################################//
 
 public function show_uploadPage(){
     return view('Student.uploadPage');
@@ -107,6 +100,7 @@ public function uploadAction(Request $request){
 
 }
 
+//#################################################### files #########################################//
 public function show_files(){
     $data = file::all();
     return view('Student.files',compact('data'));

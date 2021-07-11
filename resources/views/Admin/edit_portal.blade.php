@@ -1,9 +1,18 @@
 @extends('layouts.app')
 @section('title')
-    dashboard
+    Edit Portal
 @endsection
 @section('content')
-
+@if (session('msg'))
+    <script>
+      alert('{{session('msg')}}');
+    </script>
+    @endif
+    @foreach ($errors->all() as $error)
+    <script>
+      alert("{{$error}}");
+    </script>
+    @endforeach 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
    <!-- Content Header (Page header) -->
@@ -38,7 +47,7 @@
                     {{$error}}
                     </div>
                     @endforeach  --}}
-                    <form action="{{route('update_portal')}}" class="database-operation" enctype="multipart/form-data">
+                    <form action="{{route('update_portal')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                       <div class="row">
                         <div class="col-sm-12">
@@ -58,12 +67,6 @@
                               <div class="form-group">
                                 <label>Enter Password</label>
                                 <input type="password" value="{{$ex_portal->password}}" name="password" required class="form-control" placeholder="Enter ur Password">
-                              </div>
-                            </div>
-                          <div class="col-sm-12">
-                              <div class="form-group">
-                                <label>Enter mobile-no</label>
-                                <input type="text" value="{{$ex_portal->mobile_no}}" name="mobile_no" required class="form-control" placeholder="Enter phone-no">
                               </div>
                             </div>
                         <div class="col-sm-12">

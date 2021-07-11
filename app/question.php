@@ -4,15 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class course extends Model
+class question extends Model
 {
     protected $guarded=[];
     public function exams()
     {
         return $this->belongsToMany(Exam::class)->withTimestamps();
     }
-    public function assignExam(Exam $course)
+    public function assignExam(Exam $exam)
     {
-        $this->exams()->save($course);
+        $this->exams()->save($exam);
     }
 }

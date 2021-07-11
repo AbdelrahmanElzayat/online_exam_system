@@ -254,7 +254,7 @@
                                     <a href="{{ route('manage_portal') }}" class="nav-link">
                                         <i class="nav-icon fas fa-th"></i>
                                         <p>
-                                            Mange Portal
+                                            Portals
                                         </p>
                                     </a>
                                 </li>
@@ -279,14 +279,6 @@
                                         </p>
                                     </a>
                                 </li>
-                                {{-- <li class="nav-item">
-                                    <a href="{{ route('logoutPortal') }}" class="nav-link">
-                                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                                        <p>
-                                            Logout
-                                        </p>
-                                    </a>
-                                </li> --}}
                             @endif
                             @if (auth()->user()->user_role() === 'student')
                             <li class="nav-item">
@@ -324,21 +316,13 @@
                                 </a>
                               </li>
                               {{-- ############################################################################################## --}}
-                              {{-- <li class="nav-item">
-                                <a href="{{route('logoutStudent')}}" class="nav-link">
-                                  <i class="nav-icon fas fa-tachometer-alt"></i>
-                                  <p>
-                                    Logout
-                                  </p>
-                                </a>
-                              </li>  --}}
                               @endif
                               <li class="nav-item">
 
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                <a class="dropdown-item nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                               document.getElementById('logout-form').submit();">
                                     <i class="nav-icon fas fa-th"></i>
-                                    {{ __('Logout') }}
+                                    <p>{{ __('Logout') }}</p>
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

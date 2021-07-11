@@ -109,6 +109,14 @@ Route::get('/Student.files/{id}', 'studentController@view')->name('view');
 
 
 
+Route::get('/__Result_student', 'Admin@Result_student')->name('Result_student');
+
+
+
+
+
+
+
 
 
 
