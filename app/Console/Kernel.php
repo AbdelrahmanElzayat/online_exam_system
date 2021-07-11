@@ -2,6 +2,9 @@
 
 namespace App\Console;
 
+use App\meeting;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -25,6 +28,12 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->call(function () {
+            meeting::where('created_at', '<', Carbon::now()->subMinutes(120)->toDateTimeString())
+            ->each(function ($item) {
+                $item->delete();
+            });
+        })->everyMinute();
     }
 
     /**

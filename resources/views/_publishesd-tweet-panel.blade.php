@@ -6,11 +6,15 @@
         <hr class="my-4">
         <footer class="d-flex justify-content-between">
             <img src="{{auth()->user()->avatar}}" alt="" class="rounded-circle mr-2" width="50" height="50">
+            <div>
             <button type="submit"
-                class="btn btn-info">Submit Post</button>
+                class="btn btn-success">Share Post</button>
+               
+            </div>
         </footer>
     </form>
     @error('body')
-        <p class="text-danger">{{$message}}</p>
+    <p class="text-danger">{{$message}}</p>
     @enderror
 </div>
+

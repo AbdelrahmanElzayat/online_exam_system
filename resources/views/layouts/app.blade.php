@@ -280,20 +280,6 @@
                                         </p>
                                     </a>
                                 </li>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-                                <li class="nav-item">
-                                    <a href="{{ route('logoutPortal') }}" class="nav-link">
-                                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                                        <p>
-                                            Logout
-                                        </p>
-                                    </a>
-                                </li> --}}
->>>>>>> 56bad40025613b4ea1a94b2246f40644061c90a6
->>>>>>> 8c466b3ee54a47184c2ceaf6ed9a98a034fa418a
                             @endif
                             @if (auth()->user()->user_role() === 'student')
                             <li class="nav-item">
@@ -330,8 +316,7 @@
                                   </p>
                                 </a>
                               </li>
-<<<<<<< HEAD
-=======
+
                               <li class="nav-item">
                                 <a href="{{route('payForm')}}" class="nav-link">
                                   <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -341,18 +326,7 @@
                                 </a>
                               </li>
                               {{-- ############################################################################################## --}}
-<<<<<<< HEAD
-=======
-                             <li class="nav-item">
-                                <a href="{{route('logoutStudent')}}" class="nav-link">
-                                  <i class="nav-icon fas fa-tachometer-alt"></i>
-                                  <p>
-                                    Logout
-                                  </p>
-                                </a>
-                              </li> 
->>>>>>> 56bad40025613b4ea1a94b2246f40644061c90a6
->>>>>>> 8c466b3ee54a47184c2ceaf6ed9a98a034fa418a
+
                               @endif
                               <li class="nav-item">
 
