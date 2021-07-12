@@ -68,9 +68,14 @@
                                   {{$category->status==1?"checked":''}}></td>
          
                         <td>
+                          @if (auth()->user()->user_role() === 'admin')
                           <a href="{{ route('editCategory',$category->id) }}" class="btn btn-info">Edit</a>
                           <a href="{{ route('deleteCategory',$category->id) }}" class="btn btn-danger">Delete</a>
                           <a href="{{ route('timeline',$category) }}" class="btn btn-success">View Course</a>
+                          @endif
+                          @if (auth()->user()->user_role() === 'student')
+                          <a href="{{ route('timeline',$category) }}" class="btn btn-success">View Course</a>
+                          @endif
                         </td>
                       </tr>
                       @endforeach

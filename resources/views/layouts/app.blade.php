@@ -282,14 +282,14 @@
                                 </li>
                             @endif
                             @if (auth()->user()->user_role() === 'student')
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="{{route('dashboardStudent')}}" class="nav-link">
                                   <i class="nav-icon fas fa-tachometer-alt"></i>
                                   <p>
                                     Dashboard
                                   </p>
                                 </a>
-                              </li>    
+                              </li>     --}}
                               <li class="nav-item">
                                 <a href="{{route('Exams')}}" class="nav-link">
                                   <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -300,7 +300,7 @@
                               </li>  
                 
                               {{-- ############################################################################################## --}}
-                              <li class="nav-item">
+                              {{-- <li class="nav-item">
                                 <a href="{{route('uploadPage')}}" class="nav-link">
                                   <i class="nav-icon fas fa-tachometer-alt"></i>
                                   <p>
@@ -315,7 +315,20 @@
                                     Files
                                   </p>
                                 </a>
+<<<<<<< HEAD
                               </li>
+=======
+                              </li> --}}
+
+                              <li class="nav-item">
+                                <a href="{{ route('exam_category') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        Category
+                                    </p>
+                                </a>
+                            </li>
+>>>>>>> b62a88ab9b6ec736587bfc0b95e26f86b841d524
 
                               <li class="nav-item">
                                 <a href="{{route('payForm')}}" class="nav-link">
@@ -326,7 +339,10 @@
                                 </a>
                               </li>
                               {{-- ############################################################################################## --}}
+<<<<<<< HEAD
 
+=======
+>>>>>>> b62a88ab9b6ec736587bfc0b95e26f86b841d524
                               @endif
                               <li class="nav-item">
 
