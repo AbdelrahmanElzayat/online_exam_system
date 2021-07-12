@@ -3,10 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
 class Exam extends Model
 {
-    //
     protected $guarded=[];
     public function results()
     {
@@ -21,11 +19,8 @@ class Exam extends Model
         $results = $this->results;
         for ($i=0; $i < count($results); $i++) { 
              if ($results[$i]['user_id']=== auth()->user()->id) {
-                return $results[$i];
+                return $results[$i];}  
         }
-           
-        }
-       
     }
     public function courses()
     {
@@ -39,7 +34,6 @@ class Exam extends Model
     {
         $this->courses()->sync($course);
     }
-
     public function questions()
     {
         return $this->belongsToMany(question::class)->withTimestamps();

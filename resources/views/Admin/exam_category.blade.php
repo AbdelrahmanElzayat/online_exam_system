@@ -43,10 +43,11 @@
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">Title</h3>
-  
+      @if (auth()->user()->user_role() === 'admin')
                   <div class="card-tools">
                       <a class="btn btn-info btn-sm" href="javascript:;" data-toggle="modal" data-target="#myModal">Add New</a>
                   </div>
+      @endif
                 </div>
                 <div class="card-body">
                   <table class="table table-striped table-bordered table-hover datatable">
