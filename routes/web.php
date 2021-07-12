@@ -122,13 +122,8 @@ Route::get('/Student.files/{id}', 'studentController@view')->name('view');
 Route::get('/cateogry/{course:name}','PostController@index')->name('timeline');
 Route::post('/timline', 'PostController@store')->name('post.store');
 Route::post('/assignUser', 'PostController@assignUser')->name('assignUser');
+Route::post('/zoomsave', 'PostController@createzoom')->name('zoom.store');
 
-
-
-
-
-
-Route::get('/__Result_student', 'Admin@Result_student')->name('Result_student');
 
 
 

@@ -315,6 +315,9 @@
                                     Files
                                   </p>
                                 </a>
+<<<<<<< HEAD
+                              </li>
+=======
                               </li> --}}
 
                               <li class="nav-item">
@@ -325,6 +328,7 @@
                                     </p>
                                 </a>
                             </li>
+>>>>>>> b62a88ab9b6ec736587bfc0b95e26f86b841d524
 
                               <li class="nav-item">
                                 <a href="{{route('payForm')}}" class="nav-link">
@@ -335,6 +339,10 @@
                                 </a>
                               </li>
                               {{-- ############################################################################################## --}}
+<<<<<<< HEAD
+
+=======
+>>>>>>> b62a88ab9b6ec736587bfc0b95e26f86b841d524
                               @endif
                               <li class="nav-item">
                                 <a href="{{route('edit')}}" class="nav-link">

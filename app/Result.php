@@ -21,4 +21,8 @@ class Result extends Model
     {
         return $this->results->map->user_id;
     }
+     public function get_user_email($id)
+    {
+        return User::findOrFail($id)->email;
+    }
 }

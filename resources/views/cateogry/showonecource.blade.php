@@ -28,8 +28,10 @@
     </style>
 @endsection
 @section('content')
-    <div class="container pt-4">
-        <div class="card text-center">
+
+<div class="container pt-4">
+    @include('__zoom')
+    <div class="card text-center">
             <div class="card-header specialbackground">
                 <ul class="nav nav-tabs card-header-tabs ">
                     <li class="nav-item ">
@@ -46,15 +48,24 @@
                     <i class="nav-item">
                         <button id="Exams_buttom" class="nav-link tap-buttom" onclick="openCity('Exams')">Exams</button>
                     </i>
+                    @if (auth()->user()->user_role() == 'student')
+                    @else
                     <i class="nav-item">
                         <button id="Assign_student_buttom" class="nav-link tap-buttom" onclick="openCity('Assign_student')">Assign_Student</button>
                     </i>
+                    <i class="nav-item">
+                        <button id="Result_buttom" class="nav-link tap-buttom" onclick="openCity('Result')">Result</button>
+                    </i>
+                    @endif
                 </ul>
             </div>
             <div class="card-body">
                 {{-- ====================================================================== --}}
                 <div id="TimeLine" class="city">
+                    @if (auth()->user()->user_role() == 'student')
+                    @else
                     @include('_publishesd-tweet-panel')
+                    @endif
                     @include('_timeline')
                 </div>
                 {{-- ======================================================================= --}}
@@ -68,12 +79,19 @@
                 <div id="Exams" class="city" style="display:none">
                     @include('__Exams')
                 </div>
+                @if (auth()->user()->user_role() == 'student')
+                @else
                 <div id="Assign_student" class="city" style="display:none">
                     @include('__Assign_student')
+                </div>
+                <div id="Result" class="city" style="display:none">
+                    @include('__Result_student')
+                    @endif
                 </div>
             </div>
         </div>
     </div>
+
 @endsection
 @section('script')
     <script>
@@ -92,3 +110,4 @@
         }
     </script>
 @endsection
+

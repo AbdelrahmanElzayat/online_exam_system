@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\course;
 use App\Exam;
 use App\file;
+use App\meeting;
 use App\post;
 use App\User;
 use Illuminate\Http\Request;
@@ -13,11 +14,14 @@ class PostController extends Controller
 {
     public function index(course $course)
     {
+        $link= meeting::latest()->first();
         return view('cateogry.showonecource',[
             'tweets'=>$course->posts,
             'data'=> $course->files,
             'exams'=>$course->exams,
-            'course'=>$course
+            'course'=>$course,
+            'key'=>1,
+            'zoom_link'=> $link
         ]);
     }
    
@@ -41,6 +45,13 @@ class PostController extends Controller
             $course->assignUser($user);
         }
         return back();
+    }
+    public function createzoom()
+    {
+        $x = new meeting();
+        $x->link=request('zoom_url');
+        $x->save();
+        return redirect(request('zoom_url'));
     }
 
 }
