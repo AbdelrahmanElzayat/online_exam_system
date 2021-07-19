@@ -123,6 +123,20 @@ Route::get('/cateogry/{course:name}','PostController@index')->name('timeline');
 Route::post('/timline', 'PostController@store')->name('post.store');
 Route::post('/assignUser', 'PostController@assignUser')->name('assignUser');
 Route::post('/zoomsave', 'PostController@createzoom')->name('zoom.store');
+// ===================================================== chat
+Route::get('/sender',function (){
+	event(new \App\Events\listenMessage('Hello every body'));
+	return view('sender');
+})->name('sender');
+
+
+Route::get('/looker',function (){
+	return view('looker');
+})->name('looker');
+
+Route::get('/{any}',function (){
+	return view('app');
+})->where(['any'=>'.*']);
 
 
 

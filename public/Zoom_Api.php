@@ -1,14 +1,5 @@
 <?php 
-/* 
-| Developed by: Tauseef Ahmad
-| Last Upate: 01-19-2021 08:45 PM
-| Facebook: www.facebook.com/ahmadlogs
-| Twitter: www.twitter.com/ahmadlogs
-| YouTube: https://www.youtube.com/channel/UCOXYfOHgu-C-UfGyDcu5sYw/
-| Blog: https://ahmadlogs.wordpress.com/
- */ 
- 
-//Include Firebase Library and Dependencies
+
 require_once 'php-jwt-master/src/BeforeValidException.php';
 require_once 'php-jwt-master/src/ExpiredException.php';
 require_once 'php-jwt-master/src/SignatureInvalidException.php';

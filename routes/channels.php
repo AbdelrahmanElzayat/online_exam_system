@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,17 @@ use Illuminate\Support\Facades\Broadcast;
 
 Broadcast::channel('App.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
+});
+Broadcast::channel('message.{fromUser}.{toUser}', function ($user, $fromUser, $toUser) {
+	if ($user->id === $toUser) {
+		return true;
+	}
+	return true;
+});
+
+Broadcast::channel('status.app', function ($user) {
+	return $user->name;
+});
+Broadcast::channel('chat', function ($user) {
+    return Auth::check();
 });

@@ -1,5 +1,5 @@
 
-    {{-- include_once 'public/Zoom_Api.php';
+    {{-- include_once 'Zoom_Api.php';
     $zoom_meeting = new Zoom_Api();
     $data = array();
     $data['topic'] 		= 'Example Test Meeting';
@@ -10,7 +10,7 @@
     try {
         $response = $zoom_meeting->createMeeting($data);
         ($response); --}}
-        
+
 {{-- ------------------------------------------------------------------------------------ --}}
 
 @if (auth()->user()->user_role() == 'admin')
@@ -27,8 +27,8 @@
 
 
 {{-- ------------------------------------------------------------------------------------ --}}
-{{-- <
+{{-- 
 } catch (Exception $ex) {
     echo $ex;
-}
---}}
+} --}}
+

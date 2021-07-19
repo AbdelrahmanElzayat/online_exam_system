@@ -24,7 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "laravel-echo": "^1.5.3",
+        "laravel-echo": "^1.11.0",
         "pusher-js": "^4.4.0",
         "vue-router": "^3.0.2"
     }

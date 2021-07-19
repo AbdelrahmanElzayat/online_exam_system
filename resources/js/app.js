@@ -27,6 +27,11 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app',
-});
+ import router from './routes'
+ import iammain from './iammain'
+ 
+ const app = new Vue({
+     el: '#app',
+     router,
+     render: (h) => h(iammain)
+ });
