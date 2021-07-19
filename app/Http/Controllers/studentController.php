@@ -18,7 +18,6 @@ use App\Result;
 class studentController extends Controller
 {
 //########################################### exams ##################################################
-
 //***************************** view exams
     public function Exams(){
        $exams = auth()->user()->exams;
@@ -26,13 +25,11 @@ class studentController extends Controller
            'exams'=>$exams
        ]);
     }
-
 //**************************** questions form
     public function join_exam_form(Exam $id){
             $data = $id->questions;
             return view('Student.join_exam_form',compact('data'));
     }
-
 //*************************** submit answers
     public function submit_exam(Request $request){
         $yes_ans = 0;
@@ -48,9 +45,7 @@ class studentController extends Controller
                 }else{
                     $result[$data['question'.$i]]='no';
                     $no_ans++;
-                }
-            }
-        }
+                }    }}
         $res = new Result();
         $res->user_id = auth()->user()->id;
         $res->yes_ans = $yes_ans;
@@ -61,7 +56,6 @@ class studentController extends Controller
         $exam->assignResult($res);
         return redirect(route('show_result',$res->id));
     }
-
 //**************************************************** result page
     public function show_result($id){
 
@@ -73,7 +67,6 @@ class studentController extends Controller
     }
 
 //#################################################### upload files #########################################//
-
 public function show_uploadPage(){
     return view('Student.uploadPage');
 }
@@ -100,9 +93,7 @@ public function uploadAction(Request $request){
     $course = course::findOrFail($request->course_id);
     $course->assignfiles($data);
     return back();
-
 }
-
 //#################################################### files #########################################//
 public function show_files(){
     $data = file::all();

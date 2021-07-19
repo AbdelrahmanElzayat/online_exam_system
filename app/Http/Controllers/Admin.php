@@ -180,19 +180,6 @@ public function addNewQuestion(Request $request){
             return redirect()->route('add_question',$request->exam_id)->with('msg','success');
 }
 
-//******************************************** questions status
-public function question_status($id){
-    $ex_exam_question_master = question::where('id',$id)->get()->first();
-    if($ex_exam_question_master->status==1){
-        $status=0;
-    }else{
-        $status=1;
-    }
-    $ex_exam_master1 = question::where('id',$id)->get()->first();
-    $ex_exam_master1->status=$status;
-    $ex_exam_master1->update();
-}
-
 //******************************************** delete questions
 public function delete_question($id){
     $ex_exam_question_master = question::where('id','=',$id)->get()->first();
@@ -223,6 +210,18 @@ public function updateQuestion(Request $request){
                                       'option3'=>$request->option3,'option4'=>$request->option4));
         $question->update();
 return redirect()->route('add_question',$question->exams->map->id->first());
+}
+//******************************************** questions status
+public function question_status($id){
+    $ex_exam_question_master = question::where('id',$id)->get()->first();
+    if($ex_exam_question_master->status==1){
+        $status=0;
+    }else{
+        $status=1;
+    }
+    $ex_exam_master1 = question::where('id',$id)->get()->first();
+    $ex_exam_master1->status=$status;
+    $ex_exam_master1->update();
 }
 
 

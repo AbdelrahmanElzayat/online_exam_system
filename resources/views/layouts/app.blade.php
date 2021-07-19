@@ -281,7 +281,7 @@
 
                               <li class="nav-item">
                                 <a href="{{route('payForm')}}" class="nav-link">
-                                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                                  <i class="nav-icon fas fa-th"></i>
                                   <p>
                                     Payment
                                   </p>
@@ -291,6 +291,14 @@
 
                               @endif
                               @endif
+                              <li class="nav-item">
+                                <a href="{{route('edit')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>
+                                        Update 
+                                    </p>
+                                </a>
+                            </li> 
                               <li class="nav-item">
 
                                 <a class="dropdown-item nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -303,14 +311,7 @@
                                     @csrf
                                 </form>
                             </li>
-                           <li class="nav-item">
-                                <a href="{{route('edit')}}" class="nav-link">
-                                    <i class="nav-icon fas fa-th"></i>
-                                    <p>
-                                        Update 
-                                    </p>
-                                </a>
-                            </li> 
+                          
                             
                         </ul>
                     </nav>
